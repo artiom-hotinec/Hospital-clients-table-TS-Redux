@@ -1,0 +1,31 @@
+.Appointments {
+    padding: 15px;
+    color: #171d26;
+    border: 1px solid black;
+}
+
+.grid{
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-column-gap: 0;
+    grid-row-gap: 0;
+}
+
+.title{
+    color: #72b63b;
+}
+
+.form{
+    max-width: 150px;
+}
+
+.dataSort{
+    cursor: pointer;
+    user-select: none;
+    display: contents;;
+}
+
+.dataSort:hover {
+    text-shadow: 1px 1px #719700;
+}

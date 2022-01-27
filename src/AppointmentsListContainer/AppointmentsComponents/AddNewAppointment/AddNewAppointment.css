@@ -1,0 +1,26 @@
+.AddNewAppointment{
+    display: flex;
+    flex-direction: row;
+    /*justify-content: space-evenly;*/
+    font-size: 16px;
+    font-size: 16px;
+}
+
+.AddNewAppointment div{
+    margin-right: 50px;
+}
+
+.AddNewAppointment input[id='duration']{
+    max-width: 30px;
+    border: none;
+    text-align: center;
+    font-size: 14px;
+}
+.AddNewAppointment input[id='duration']::-webkit-outer-spin-button,
+.AddNewAppointment input[id='duration']::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+#timeInput{
+    display: flex;
+}

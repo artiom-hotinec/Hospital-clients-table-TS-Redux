@@ -1,0 +1,56 @@
+.btn-BoxShadow {
+    width: 150px;
+    height: 50px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    color: #171d26;
+    background: white;
+    border: 2px solid #171d26;
+    box-shadow: 5px 5px 0 #171d26,
+    -5px -5px 0 #171d26,
+    -5px 5px 0 #171d26,
+    5px -5px 0 #171d26;
+    transition: 500ms ease-in-out;
+    transform: scale(0.8);
+}
+
+.btn-BoxShadow:hover {
+    box-shadow: 20px 5px 0 #171d26, -20px -5px 0 #171d26;
+}
+
+.btn-BoxShadow:focus {
+    outline: none;
+}
+
+.btn-BoxShadow:active {
+    transition: none;
+    background: #eeeeee
+}
+
+.btn-TriggerOverlay {
+    margin: 0 auto;
+    font-size: 0.9rem;
+    padding: 0.3rem 1.2rem;
+    display: block;
+    background-color: #171d26;
+    border: 1px solid transparent;
+    color: #72b63b;
+    font-weight: 300;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.btn-TriggerOverlay:hover {
+    background-color: #84BD00;
+    color: #171d26;
+    border-color: #72b63b;
+}
+.btn-TriggerOverlay:active {
+    transform: scale(0.98);
+    transition: none;
+}

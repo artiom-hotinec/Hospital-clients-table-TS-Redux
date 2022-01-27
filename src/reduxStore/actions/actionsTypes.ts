@@ -1,0 +1,7 @@
+export const Update_Appointment: string = 'Update_Appointment'
+export const Group_Appointment: string = 'Update_Appointment'
+export const Sort_Ascending: string = 'Sort_Ascending'
+export const Add_New_Appointment: string = 'Add_New_Appointment'
+export const Fetch_Appointment_Start: string = 'Fetch_Appointment_Start'
+export const Fetch_Data_Success: string = 'Fetch_Data_Success'
+export const Fetch_Data_Error: string = 'Fetch_DataFetch_Data_Error_Success'

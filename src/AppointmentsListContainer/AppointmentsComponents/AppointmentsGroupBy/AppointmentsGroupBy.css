@@ -1,0 +1,14 @@
+.GropedBy{
+    display: flex;
+    align-items: baseline;
+}
+.GropedBy:last-child{
+    margin-bottom: 20px;
+}
+.GropedBy select{
+    border: none;
+    text-align: center;
+    font-size: 14px;
+    padding: 5px;
+    background: none;
+}
