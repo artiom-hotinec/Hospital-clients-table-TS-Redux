@@ -1,8 +1,18 @@
-import {combineReducers} from 'redux';
-import {AppointmentsReducer} from "./Appointments";
+import appointmentsReducer from "./appointmentSlice";
+import {combineReducers ,configureStore} from "@reduxjs/toolkit";
 
 
-export default combineReducers({
-    appointments: AppointmentsReducer
+const rootReducer = combineReducers({
+    appointmentsReducer
 })
 
+
+export const setupStore = () => {
+    return configureStore({
+        reducer: rootReducer
+    })
+}
+
+export type RootState = ReturnType<typeof rootReducer>
+export type AppStore = ReturnType<typeof setupStore>
+export type AppDispatch = AppStore['dispatch']

@@ -8,6 +8,7 @@ import {
     Fetch_Data_Success,
     Fetch_Data_Error, Group_Appointment
 } from "../actions/actionsTypes";
+import {noGroup} from "../../utils/appointmentsConstants";
 
 export type DataFromService = {
     id: string,
@@ -28,6 +29,7 @@ export type AppointmentStateType = Readonly<{
     isLoading: boolean;
     error: null | string;
     clinicianNameArray: string[];
+    groupBy: string;
 }>;
 
 const initialState: AppointmentStateType = {
@@ -36,7 +38,8 @@ const initialState: AppointmentStateType = {
     isSortAscending: false,
     isLoading: false,
     error: null,
-    clinicianNameArray: []
+    clinicianNameArray: [],
+    groupBy: noGroup
 }
 
 export const AppointmentsReducer = createReducer(initialState)
@@ -61,7 +64,9 @@ export const AppointmentsReducer = createReducer(initialState)
     }))
     .handleType(Group_Appointment, (state: typeof initialState, action: any) => ({
         ...state,
-        dataArray: action.payload
+        dataArray: action.payload.newArray,
+        groupBy: action.payload.groupBy,
+
     }))
     .handleType(Add_New_Appointment, (state: typeof initialState, action: any) => ({
         ...state,

@@ -1,42 +1,50 @@
 import React, {useCallback, useState} from "react";
-import {SelectCustom} from "../../../Componets/UI/SelectCustom/SelectCustom";
-import  "./AppointmentsGroupBy.css";
+import {Select} from "../../../Componets/UI/Select/Select";
+import "./AppointmentsGroupBy.css";
+import {useAppDispatch} from "../../../hook/redux";
+import {IReturnedDispatch} from "../../../models/IAppointments";
 
 export interface AppointmentsGroupByProps {
     monthNames: string[],
     clinicianName: string[],
-    GroupByAppointment: Function,
+    groupByAppointment: IReturnedDispatch
 }
 
-export const AppointmentsGroupBy: React.FunctionComponent<AppointmentsGroupByProps> = ({monthNames, clinicianName, GroupByAppointment}) => {
+export const AppointmentsGroupBy: React.FunctionComponent<AppointmentsGroupByProps> = ({
+                                                                                           monthNames,
+                                                                                           clinicianName,
+                                                                                           groupByAppointment
+                                                                                       }) => {
 
     const [localMonthNames, setLocalMonthNames] = useState('')
     const [localClinicianName, setLocalClinicianName] = useState('')
 
+    const dispatch = useAppDispatch()
+
     const changeHandleMonthNames = useCallback(
         (e: React.ChangeEvent<HTMLSelectElement>) => {
-            const eName=e.target.value
+            const eName = e.target.value
             setLocalMonthNames(eName)
-            GroupByAppointment(eName)
+            dispatch(groupByAppointment(eName))
             setLocalClinicianName('')
         },
         [setLocalClinicianName]
     );
     const changeHandleClinicianName = useCallback(
-        (e: React.ChangeEvent<HTMLSelectElement>) =>{
-            const eName=e.target.value
+        (e: React.ChangeEvent<HTMLSelectElement>) => {
+            const eName = e.target.value
             setLocalClinicianName(eName)
-            GroupByAppointment(eName)
+            dispatch(groupByAppointment(eName))
             setLocalMonthNames('')
         },
         [setLocalClinicianName]
     );
     return (
         <div>
-            <SelectCustom id={'monthNames'} value={localMonthNames} onChangeHandler={changeHandleMonthNames}
-                          options={monthNames} labelText={'Groped by month:'} htmlFor={'monthNames'} className={'GropedBy'}/>
-            <SelectCustom id={'clinicianName'} value={localClinicianName} onChangeHandler={changeHandleClinicianName}
-                          options={clinicianName} labelText={'Groped by clinician name:'} htmlFor={'ClinicianName'} className={'GropedBy'}/>
+            <Select id={'monthNames'} value={localMonthNames} onChangeHandler={changeHandleMonthNames}
+                    options={monthNames} labelText={'Groped by month:'} className={'GropedBy'}/>
+            <Select id={'clinicianName'} value={localClinicianName} onChangeHandler={changeHandleClinicianName}
+                    options={clinicianName} labelText={'Groped by clinician name:'} className={'GropedBy'}/>
         </div>
     )
 }

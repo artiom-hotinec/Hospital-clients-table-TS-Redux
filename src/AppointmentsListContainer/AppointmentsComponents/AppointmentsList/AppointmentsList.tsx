@@ -1,6 +1,7 @@
 import * as React from 'react'
 import {PatientCard, PatientCardProps} from "./PatientCard/PatientCard";
-import {HashForKey} from "../../../Hash/HashForKey";
+import {v4 as uuidv4} from 'uuid';
+import {IReturnedDispatch} from "../../../models/IAppointments";
 
 
 export type dataList = {
@@ -12,21 +13,21 @@ export type dataList = {
 }
 
 
-
-export interface AppointmentsList{
+export interface AppointmentsList {
     dataAppointmentsArray: dataList[],
-    idArray:string[],
-    removeAppointment: ()=> void
+    idArray: string[],
+    removeAppointment: IReturnedDispatch
 }
 
 
-export const AppointmentsList: React.FC<AppointmentsList> = ({dataAppointmentsArray, idArray, removeAppointment}) =>  {
+export const AppointmentsList: React.FC<AppointmentsList> = ({dataAppointmentsArray, idArray, removeAppointment}) => {
 
     return (
         <>
             {dataAppointmentsArray.map((appointments: PatientCardProps["objDataOfPatient"], index) => {
                 return (
-                    <PatientCard objDataOfPatient={appointments} key={HashForKey(appointments.patientName)} idForli={idArray[index]} removeAppointment={removeAppointment}  />
+                    <PatientCard objDataOfPatient={appointments} key={uuidv4()} idForLi={idArray[index]}
+                                 removeAppointment={removeAppointment}/>
                 )
             })}
         </>

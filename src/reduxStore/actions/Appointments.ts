@@ -8,9 +8,9 @@ import {
     Sort_Ascending, Group_Appointment
 } from "./actionsTypes";
 import {DataFromService} from "../reducers/Appointments";
-import {HashFoeIDData} from "../../Hash/HashFoeIDData";
+import { v4 as uuidv4 } from 'uuid';
 
-export interface AppointmentObject {
+export interface IAppointmentObject {
     clinicianName: string
     duration: string | number
     name: string
@@ -51,15 +51,14 @@ export const fetchData = () =>
 
         fetch('./data.json')
             .then(res => res.json())
-
-            // .then((data) => dispatch(fetchDataSuccess(data, uniqueClinicianName(data))))       // uncomment  this for start without delay
+            .then((data) => dispatch(fetchDataSuccess(data, uniqueClinicianName(data))))       // uncomment  this for start without delay
                                                                                                   // and  comment next .then
-            .then((data) => {                                                                   // imitation of a response delay from the service
-                delay(1500)
-                    .then(() => {
-                        dispatch(fetchDataSuccess(data, uniqueClinicianName(data)))
-                    })
-            })
+            // .then((data) => {                                                                   // imitation of a response delay from the service
+            //     delay(1500)
+            //         .then(() => {
+            //             dispatch(fetchDataSuccess(data, uniqueClinicianName(data)))
+            //         })
+            // })
 
             .catch(error => {
                 dispatch(fetchDataError(error.message))
@@ -84,23 +83,26 @@ export const removeAppointment = (idObj: string | number) =>
     }
 
 
-//  add NEW Appointment
 
 export const add = (newItem: Object) => action(Add_New_Appointment, {newItem});
 
-export const addAppointment = (Obj: AppointmentObject) =>
-    (dispatch: Function) => {
+export const addAppointment = (Obj: IAppointmentObject) =>
+    (dispatch: Function, getState: Function) => {
+
+        const groupBy = getState().appointments.groupBy
+
         const newObj: Omit<DataFromService, "status"> = {
-            'id': HashFoeIDData(),
+            'id': uuidv4(),
             'startDate': Obj.startDate,
             'endDate': new Date(new Date(Obj.startDate).getTime() + +Obj.duration * 60000),
             'clinicianName': Obj.clinicianName,
             'patient': {
-                'id': HashFoeIDData(),
+                'id': uuidv4(),
                 'name': Obj.name
             }
         }
         dispatch(add(newObj))
+        dispatch(GroupByAppointment(groupBy))
     }
 
 // Sort Data
@@ -122,7 +124,7 @@ export const DataSort = () =>
     }
 
 // GroupBy
-const GroupAppointment = (newArray: Array<Object>) => action(Group_Appointment, newArray);
+const GroupAppointment = (newArray: Array<Object>, groupBy: string) => action(Group_Appointment, {newArray,groupBy});
 const monthNames = ["January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"];
 export const GroupByAppointment = (nameByGroup: string) =>
@@ -142,9 +144,9 @@ export const GroupByAppointment = (nameByGroup: string) =>
                 }
             })
             if (nameByGroup === 'No group') {
-                dispatch(GroupAppointment(Array))
+                dispatch(GroupAppointment(Array, nameByGroup))
             } else {
-                dispatch(GroupAppointment(newArray))
+                dispatch(GroupAppointment(newArray, nameByGroup))
             }
         } else {
 
@@ -154,9 +156,9 @@ export const GroupByAppointment = (nameByGroup: string) =>
                 }
             })
             if (nameByGroup === 'No group') {
-                dispatch(GroupAppointment(Array))
+                dispatch(GroupAppointment(Array, nameByGroup))
             } else {
-                dispatch(GroupAppointment(newArray))
+                dispatch(GroupAppointment(newArray, nameByGroup))
             }
 
         }

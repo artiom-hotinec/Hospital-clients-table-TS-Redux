@@ -1,26 +1,32 @@
-import {HashForKey} from "../../../Hash/HashForKey";
+import { v4 as uuidv4 } from 'uuid';
 import React, {useCallback} from "react";
+import {useAppDispatch} from "../../../hook/redux";
+import { startDate } from "../../../utils/appointmentsConstants";
+import {IReturnedDispatch} from "../../../models/IAppointments";
 
 export interface AppointmentsTitleProps {
     titles: string[],
-    sortData: Function
+    sortData: IReturnedDispatch
 }
 
 export const AppointmentsTitle: React.FunctionComponent<AppointmentsTitleProps> = ({titles, sortData}) => {
 
+    const dispatch = useAppDispatch()
+
     const addAppointmentHandler = useCallback(
-        (e: React.MouseEvent<HTMLButtonElement>) => sortData(),
+        () => dispatch(sortData()),
         [sortData]
     );
+
 
     return (
         <li className={'title grid'}>
             {titles.map((title) => {
 
                 return (
-                    <strong key={HashForKey(title)}
-                            className={title === 'Start Date' ? 'dataSort' : null}
-                            onClick={title === 'Start Date' ? addAppointmentHandler : null}>
+                    <strong key={uuidv4()}
+                            className={title === startDate ? 'dataSort' : null}
+                            onClick={title === startDate ? addAppointmentHandler : null}>
                         {title}
                     </strong>
                 )
