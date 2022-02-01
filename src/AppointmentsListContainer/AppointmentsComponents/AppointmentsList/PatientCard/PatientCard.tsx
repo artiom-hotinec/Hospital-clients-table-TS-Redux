@@ -1,11 +1,12 @@
 import * as React from "react";
+import {useCallback} from "react";
 import './PatientCard.css'
 import {v4 as uuidv4} from 'uuid';
 import {Button} from "../../../../Componets/UI/Button/Button";
-import {useCallback} from "react";
 import {dataList} from "../AppointmentsList";
 import {useAppDispatch} from "../../../../hook/redux";
-import {IReturnedDispatch} from "../../../../models/IAppointments";
+import {IReturnedDispatch} from "../../../../types/Appointments";
+import {ButtonView} from "../../../../Componets/UI/Button/buttonType";
 
 
 export interface PatientCardProps {
@@ -43,7 +44,7 @@ export const PatientCard: React.FC<PatientCardProps> = ({objDataOfPatient, idFor
                     </span>
                 )
             })}
-            <Button btnName={'Delete appointments'} onClick={BtnHandler} customClass={'btn-TriggerOverlay'}/>
+            <Button title={'Delete appointments'} onClick={BtnHandler} view={ButtonView.triggerOverlay}/>
 
         </li>
     )

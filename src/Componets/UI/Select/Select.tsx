@@ -12,13 +12,13 @@ export interface SelectProps {
 }
 
 export const Select: React.FunctionComponent<SelectProps> = ({
-                                                                 id,
-                                                                 value,
-                                                                 onChangeHandler,
-                                                                 options,
-                                                                 labelText,
-                                                                 className
-                                                             }) => {
+    id,
+    value,
+    onChangeHandler,
+    options,
+    labelText,
+    className
+}) => {
 
     return (
         <div className={className}>

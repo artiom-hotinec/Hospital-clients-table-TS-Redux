@@ -1,15 +1,15 @@
-import { v4 as uuidv4 } from 'uuid';
+import {v4 as uuidv4} from 'uuid';
 import React, {useCallback} from "react";
 import {useAppDispatch} from "../../../hook/redux";
-import { startDate } from "../../../utils/appointmentsConstants";
-import {IReturnedDispatch} from "../../../models/IAppointments";
+import {START_DATE} from "../../../utils/appointmentsConstants";
+import {IReturnedDispatch} from "../../../types/Appointments";
 
 export interface AppointmentsTitleProps {
     titles: string[],
     sortData: IReturnedDispatch
 }
 
-export const AppointmentsTitle: React.FunctionComponent<AppointmentsTitleProps> = ({titles, sortData}) => {
+export const AppointmentsTitle: React.FC<AppointmentsTitleProps> = ({titles, sortData}) => {
 
     const dispatch = useAppDispatch()
 
@@ -25,8 +25,8 @@ export const AppointmentsTitle: React.FunctionComponent<AppointmentsTitleProps> 
 
                 return (
                     <strong key={uuidv4()}
-                            className={title === startDate ? 'dataSort' : null}
-                            onClick={title === startDate ? addAppointmentHandler : null}>
+                            className={title === START_DATE ? 'dataSort' : null}
+                            onClick={title === START_DATE ? addAppointmentHandler : null}>
                         {title}
                     </strong>
                 )

@@ -13,15 +13,15 @@ export interface InputProps {
 }
 
 export const Input: React.FunctionComponent<InputProps> = ({
-                                                               id,
-                                                               type,
-                                                               value,
-                                                               labelTitle,
-                                                               onChangeHandler,
-                                                               spanName,
-                                                               minValue,
-                                                               step
-                                                           }) => {
+    id,
+    type,
+    value,
+    labelTitle,
+    onChangeHandler,
+    spanName,
+    minValue,
+    step
+}) => {
 
     return (
         <div>

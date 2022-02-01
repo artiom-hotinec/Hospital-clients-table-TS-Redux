@@ -1,7 +1,7 @@
 import * as React from 'react'
 import {PatientCard, PatientCardProps} from "./PatientCard/PatientCard";
 import {v4 as uuidv4} from 'uuid';
-import {IReturnedDispatch} from "../../../models/IAppointments";
+import {IReturnedDispatch} from "../../../types/Appointments";
 
 
 export type dataList = {

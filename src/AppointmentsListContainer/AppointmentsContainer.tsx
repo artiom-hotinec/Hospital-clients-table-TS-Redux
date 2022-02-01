@@ -7,8 +7,8 @@ import {AppointmentsGroupBy} from "./AppointmentsComponents/AppointmentsGroupBy/
 import './Appointments.css'
 
 import {Loader} from "../Componets/UI/Loader/Loader";
-import {monthNames, noGroup, titlesList} from "../utils/appointmentsConstants";
-import {appointmentsSlice} from "../reduxStore/reducers/appointmentSlice";
+import {monthNames, NO_GROUP, titlesList} from "../utils/appointmentsConstants";
+
 import {
     fetchAppointments,
     removeAppointment,
@@ -28,7 +28,6 @@ export const AppointmentsContainer = () => {
 
     } = useAppSelector(state => state.appointmentsReducer)
     const state = useAppSelector(state => state.appointmentsReducer)
-    const {} = appointmentsSlice.actions
 
     const dispatch = useAppDispatch()
 
@@ -77,7 +76,7 @@ export const AppointmentsContainer = () => {
     listAddNewAppointment.shift()
 
     monthArray = Array.from(new Set(monthArray))
-    monthArray.unshift(noGroup)
+    monthArray.unshift(NO_GROUP)
 
     return (
         <>

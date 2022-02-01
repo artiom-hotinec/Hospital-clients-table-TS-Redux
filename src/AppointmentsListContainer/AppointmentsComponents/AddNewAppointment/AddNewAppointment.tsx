@@ -4,8 +4,8 @@ import {Input} from "../../../Componets/UI/Input/Input";
 import {Button} from "../../../Componets/UI/Button/Button";
 import {Select} from "../../../Componets/UI/Select/Select";
 import {useAppDispatch} from "../../../hook/redux";
-import {IReturnedDispatch} from "../../../models/IAppointments";
-import {enumButton} from "../../../Componets/UI/Button/enumButton";
+import {IReturnedDispatch} from "../../../types/Appointments";
+import {ButtonType, ButtonView} from "../../../Componets/UI/Button/buttonType";
 
 
 export interface AddNewAppointmentProps {
@@ -87,8 +87,8 @@ export const AddNewAppointment: React.FunctionComponent<AddNewAppointmentProps> 
                        minValue={30} step={5}/>
                 <Select id={'clinicianName'} value={localClinicianName} onChangeHandler={onChangeOptionHandler}
                         options={clinicianNameArray} labelText={'Clinician name'}/>
-                <Button type={enumButton.Submit} onClick={addAppointmentHandler} btnName={'Add new appointment'}
-                        customClass={'btn-BoxShadow'}/>
+                <Button type={ButtonType.Submit} onClick={addAppointmentHandler} title={'Add new appointment'}
+                        view={ButtonView.shadow}/>
             </form>
         </div>
 

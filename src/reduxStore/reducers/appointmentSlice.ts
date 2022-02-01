@@ -1,12 +1,12 @@
-import {IAppointments} from "../../models/IAppointments";
-import {noGroup} from "../../utils/appointmentsConstants";
+import {IDataFromService} from "../../types/Appointments";
+import {NO_GROUP} from "../../utils/appointmentsConstants";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {fetchAppointments} from "../actions/aciontsAppointments";
 
 
-interface AppointmentStateType {
-    dataArray: IAppointments[];
-    notGroupDataArray: IAppointments[];
+interface IAppointmentState {
+    dataArray: IDataFromService[];
+    notGroupDataArray: IDataFromService[];
     isSortAscending: boolean;
     isLoading: boolean;
     error: null | string;
@@ -14,23 +14,23 @@ interface AppointmentStateType {
     groupBy: string;
 }
 
-const initialState: AppointmentStateType = {
+const initialState: IAppointmentState = {
     dataArray: [],
     notGroupDataArray: [],
     isSortAscending: false,
     isLoading: false,
     error: null,
     clinicianNameArray: [],
-    groupBy: noGroup
+    groupBy: NO_GROUP
 }
 
 interface IFetchAppointments {
-    dataArray: IAppointments[],
+    dataArray: IDataFromService[],
     clinicianNameArray: string[]
 }
 
 interface IGroupAppointment {
-    newArray: IAppointments[],
+    newArray: IDataFromService[],
     nameByGroup: string
 }
 
@@ -39,38 +39,39 @@ export const appointmentsSlice = createSlice({
     name: 'appointment',
     initialState,
     reducers: {
-        updateAppointment(state, action: PayloadAction<IAppointments[]>) {
+        updateAppointment(state: IAppointmentState, action: PayloadAction<IDataFromService[]>) {
             state.dataArray = action.payload
             state.notGroupDataArray = action.payload
         },
-        addNewAppointment(state, action: PayloadAction<IAppointments>) {
+        addNewAppointment(state: IAppointmentState, action: PayloadAction<IDataFromService>) {
             state.dataArray.push(action.payload)
             state.notGroupDataArray.push(action.payload)
         },
-        groupAppointment(state, {payload}: PayloadAction<IGroupAppointment>) {
+        groupAppointment(state: IAppointmentState, {payload}: PayloadAction<IGroupAppointment>) {
             state.dataArray = payload.newArray
-            state.groupBy =  payload.nameByGroup
+            state.groupBy = payload.nameByGroup
         },
-        sortData(state) {
+        sortData(state: IAppointmentState, action: PayloadAction<IDataFromService[]>) {
+            state.dataArray = action.payload
             state.isSortAscending = !state.isSortAscending
         }
     },
     extraReducers: {
-        [fetchAppointments.fulfilled.type]: (state, action: PayloadAction<IFetchAppointments>) => {   //success
+        [fetchAppointments.fulfilled.type]: (state: IAppointmentState, action: PayloadAction<IFetchAppointments>) => {   //success
             state.dataArray = action.payload.dataArray;
             state.notGroupDataArray = action.payload.dataArray;
             state.isLoading = false;
             state.clinicianNameArray = action.payload.clinicianNameArray;
 
         },
-        [fetchAppointments.pending.type]: (state) => {                               //waiting
+        [fetchAppointments.pending.type]: (state: IAppointmentState) => {                               //waiting
             state.isLoading = true;
         },
-        [fetchAppointments.rejected.type]: (state, action: PayloadAction<string>) => {   //error
+        [fetchAppointments.rejected.type]: (state: IAppointmentState, action: PayloadAction<string>) => {   //error
             state.error = action.payload;
             state.isLoading = false;
         },
     }
 })
-    // .handleType(Sort_Ascending, (state: typeof initialState) => ({...state, isSortAscending: !state.isSortAscending}))
+
 export default appointmentsSlice.reducer

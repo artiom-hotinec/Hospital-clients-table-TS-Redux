@@ -2,7 +2,7 @@ import React, {useCallback, useState} from "react";
 import {Select} from "../../../Componets/UI/Select/Select";
 import "./AppointmentsGroupBy.css";
 import {useAppDispatch} from "../../../hook/redux";
-import {IReturnedDispatch} from "../../../models/IAppointments";
+import {IReturnedDispatch} from "../../../types/Appointments";
 
 export interface AppointmentsGroupByProps {
     monthNames: string[],
@@ -45,6 +45,7 @@ export const AppointmentsGroupBy: React.FunctionComponent<AppointmentsGroupByPro
                     options={monthNames} labelText={'Groped by month:'} className={'GropedBy'}/>
             <Select id={'clinicianName'} value={localClinicianName} onChangeHandler={changeHandleClinicianName}
                     options={clinicianName} labelText={'Groped by clinician name:'} className={'GropedBy'}/>
+
         </div>
     )
 }

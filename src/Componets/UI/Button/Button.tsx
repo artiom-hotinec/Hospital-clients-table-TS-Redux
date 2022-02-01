@@ -1,28 +1,20 @@
 import * as React from "react";
 import "./Button.css";
-import {enumButton} from "./enumButton";
-
-export interface ButtonProps {
-    id?: string,
-    type?: enumButton,
-    value?: string,
-    onClick: (e: React.MouseEvent<HTMLButtonElement>) => void,
-    btnName: string,
-    customClass?: 'btn-BoxShadow' | 'btn-TriggerOverlay',
-    className?: string
-}
+import {ButtonProps} from "./buttonType";
+import clsx from 'clsx';
 
 
 export const Button: React.FunctionComponent<ButtonProps> = ({
-                                                                 id,
-                                                                 type,
-                                                                 value,
-                                                                 onClick,
-                                                                 btnName,
-                                                                 customClass = '',
-                                                                 className = ''
-                                                             }) => {
-    const cls = customClass + ' ' + className
+    id,
+    type,
+    value,
+    onClick,
+    title,
+    className = '',
+    view
+}) => {
+
+    const cls = view || className ? clsx([view, className]) : null
 
     return (
         <button id={id}
@@ -30,6 +22,6 @@ export const Button: React.FunctionComponent<ButtonProps> = ({
                 value={value}
                 onClick={onClick}
                 className={cls}
-        >{btnName}</button>
+        >{title}</button>
     )
 }
